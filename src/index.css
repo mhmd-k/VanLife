@@ -44,6 +44,7 @@
 }
 body {
   margin: 0;
+  background-color: var(--main-bg);
   font-family: "Inter", sans-serif;
 }
 button {
@@ -55,6 +56,17 @@ a {
 }
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+footer {
+  background-color: #252525;
+  padding: 20px 0;
+  text-align: center;
+  color: #aaaaaa;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 23px;
 }
 /* navbar */
 nav {
@@ -95,7 +107,7 @@ nav ul li a {
 /* end navbar */
 /* home page */
 .landing {
-  min-height: calc(100vh - 134px);
+  min-height: calc(100vh - 120px);
   background-image: url(./assets/images/landing-image.png);
   background-position: center;
   background-size: cover;
@@ -232,12 +244,116 @@ nav ul li a {
   line-height: 24px;
 }
 /* end about */
-footer {
-  background-color: #252525;
-  padding: 20px 0;
+/* vans */
+.vans h2 {
   text-align: center;
-  color: #aaaaaa;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 23px;
 }
+.vans ul {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .vans h2 {
+    text-align: start;
+  }
+  .vans ul {
+    justify-content: start;
+  }
+}
+.vans ul li {
+  cursor: pointer;
+  padding: 5px 15px;
+  font-weight: 500;
+}
+.vans ul li:not(:last-of-type) {
+  color: white;
+  background-color: var(--btn-color);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  transition: var(--main-transition);
+  -webkit-transition: var(--main-transition);
+  -moz-transition: var(--main-transition);
+  -ms-transition: var(--main-transition);
+  -o-transition: var(--main-transition);
+}
+.vans ul li:not(:last-of-type):hover {
+  opacity: 0.8;
+}
+.vans ul li:last-of-type {
+  text-decoration: underline;
+}
+.vans .vans-container {
+  padding: 50px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.vans .van-card {
+  box-shadow: 0px 10px 10px 2px rgba(186, 186, 186, 1);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  transition: var(--main-transition);
+  -webkit-transition: var(--main-transition);
+  -moz-transition: var(--main-transition);
+  -ms-transition: var(--main-transition);
+  -o-transition: var(--main-transition);
+}
+.vans .van-card:hover {
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -o-transform: translateY(-10px);
+}
+.vans .vans-container .van-card a {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 10px;
+  background-color: var(--main-bg);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  overflow: hidden;
+  color: black;
+}
+.vans .vans-container .van-card a .image {
+  width: 100%;
+  overflow: hidden;
+}
+.vans .vans-container .van-card a .image img {
+  width: 100%;
+}
+.vans .vans-container .van-card a .info {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.vans .vans-container .van-card a .info div {
+  font-weight: 600;
+  font-size: 20px;
+}
+.vans .vans-container .van-card a .type {
+  padding: 0 15px 20px 15px;
+}
+.vans .vans-container .van-card a .type span {
+  color: #ffead0;
+  padding: 5px 15px;
+  background-color: var(--btn-color);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  font-weight: 500;
+}
+/* end vans */

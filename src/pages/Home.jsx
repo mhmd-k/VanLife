@@ -1,9 +1,6 @@
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 function Home() {
   return (
     <>
-      <Navbar />
       <div className="landing">
         <div className="content">
           <h1>You got the travel plans, we got the travel vans.</h1>
@@ -14,7 +11,6 @@ function Home() {
           <button>Find your van</button>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

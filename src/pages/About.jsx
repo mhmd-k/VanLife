@@ -1,10 +1,6 @@
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-
 function About() {
   return (
     <>
-      <Navbar />
       <div className="about">
         <div className="image"></div>
         <div className="content">
@@ -27,7 +23,6 @@ function About() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
