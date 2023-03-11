@@ -8,7 +8,7 @@ function Home() {
             Add adventure to your life by joining the #vanlife movement. Rent
             the perfect van to make your perfect road trip.
           </p>
-          <button>Find your van</button>
+          <button className="main">Find your van</button>
         </div>
       </div>
     </>

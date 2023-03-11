@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function VanCard(props) {
   return (
     <div className="van-card">
-      <Link>
+      <Link to={`/vans/${props.id}`}>
         <div className="image">
           <img src={props.image} alt="van image" />
         </div>

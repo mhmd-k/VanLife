@@ -12,6 +12,9 @@ function Navbar() {
         </div>
         <ul>
           <li>
+            <Link to="/host">Host</Link>
+          </li>
+          <li>
             <Link to="/about">About</Link>
           </li>
           <li>

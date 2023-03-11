@@ -1,20 +1,30 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Vans from "./pages/Vans";
-import Navbar from "./components/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
+import Vans from "./pages/Vans/Vans";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Host/Dashboard";
+import Reviews from "./pages/Host/Reviews";
+import Income from "./pages/Host/Income";
+import VanDetail from "./pages/Vans/VanDetail";
+import Host from "./pages/Host/Host";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<Vans />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/host" element={<Host />}>
+            <Route path="/host" element={<Dashboard />} />
+            <Route path="/host/reviews" element={<Reviews />} />
+            <Route path="/host/income" element={<Income />} />
+          </Route>
+          <Route path="/about" element={<About />} />
+          <Route path="/vans" element={<Vans />} />
+          <Route path="/vans/:id" element={<VanDetail />} />
+        </Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

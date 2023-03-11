@@ -150,7 +150,7 @@ nav ul li a {
   font-size: 16px;
   line-height: 24px;
 }
-.landing .content button {
+button.main {
   background-color: var(--btn-color);
   color: white;
   border-radius: 5px;
@@ -164,7 +164,7 @@ nav ul li a {
   -ms-transition: var(--main-transition);
   -o-transition: var(--main-transition);
 }
-.landing .content button:hover {
+button.main:hover {
   opacity: 0.8;
 }
 /* end home page */
@@ -247,6 +247,9 @@ nav ul li a {
 /* vans */
 .vans h2 {
   text-align: center;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 34px;
 }
 .vans ul {
   display: flex;
@@ -294,7 +297,7 @@ nav ul li a {
   gap: 20px;
 }
 .vans .van-card {
-  box-shadow: 0px 10px 10px 2px rgba(186, 186, 186, 1);
+  box-shadow: 0px 0px 11px 0px rgb(226 226 226);
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -357,3 +360,63 @@ nav ul li a {
   font-weight: 500;
 }
 /* end vans */
+/* van detail */
+.van-detail {
+  background-color: var(--main-bg);
+}
+.van-detail a {
+  margin-top: 20px;
+  display: block;
+  color: var(--text-color);
+}
+.van-detail .container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  min-height: 90vh;
+}
+.van-detail .card {
+  margin: 30px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+.van-detail .card .image {
+  overflow: hidden;
+  width: 40%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.van-detail .card .image img {
+  width: 100%;
+}
+.van-detail .card .content {
+  flex: 1;
+}
+.van-detail .card .content .type {
+  background-color: #ffcc8d;
+  width: fit-content;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.van-detail .card .content button {
+  padding: 10px 30px;
+}
+@media (max-width: 991px) {
+  .van-detail .card {
+    flex-direction: column;
+  }
+  .van-detail .card .image {
+    width: 100%;
+  }
+}
+/* end van detail */
