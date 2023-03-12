@@ -1,4 +1,5 @@
 function Footer() {
-  return <footer>Ⓒ 2022 #VANLIFE</footer>;
+  return <footer>Ⓒ {new Date().getFullYear()} #VANLIFE</footer>;
 }
+
 export default Footer;
