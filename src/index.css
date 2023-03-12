@@ -54,6 +54,9 @@ button {
 a {
   text-decoration: none;
 }
+button a {
+  color: white;
+}
 ul {
   list-style: none;
   margin: 0;
@@ -68,6 +71,9 @@ footer {
   font-size: 14px;
   line-height: 23px;
 }
+main {
+  min-height: calc(100vh - 120px);
+}
 /* navbar */
 nav {
   background-color: var(--main-bg);
@@ -77,7 +83,10 @@ nav {
   left: 0;
   z-index: 10;
 }
-nav .container {
+header nav {
+  border-bottom: 1px solid var(--text-color);
+}
+header nav .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -99,10 +108,20 @@ nav ul {
   display: flex;
   gap: 20px;
 }
-nav ul li a {
+nav a {
   color: var(--text-color);
   font-weight: 500;
   font-size: 14px;
+  transition: var(--main-transition);
+  -webkit-transition: var(--main-transition);
+  -moz-transition: var(--main-transition);
+  -ms-transition: var(--main-transition);
+  -o-transition: var(--main-transition);
+}
+nav a.active,
+nav a:hover {
+  text-decoration: underline;
+  font-weight: bold;
 }
 /* end navbar */
 /* home page */
@@ -168,7 +187,7 @@ button.main:hover {
   opacity: 0.8;
 }
 /* end home page */
-/* aboute */
+/* about */
 .about {
   min-height: calc(100vh - 134px);
   display: flex;
@@ -272,7 +291,7 @@ button.main:hover {
 }
 .vans ul li:not(:last-of-type) {
   color: white;
-  background-color: var(--btn-color);
+  background-color: #e17654;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -283,6 +302,12 @@ button.main:hover {
   -moz-transition: var(--main-transition);
   -ms-transition: var(--main-transition);
   -o-transition: var(--main-transition);
+}
+.vans ul li.rugged {
+  background-color: #115e59;
+}
+.vans ul li.luxury {
+  background-color: #161616;
 }
 .vans ul li:not(:last-of-type):hover {
   opacity: 0.8;
@@ -298,11 +323,11 @@ button.main:hover {
 }
 .vans .van-card {
   box-shadow: 0px 0px 11px 0px rgb(226 226 226);
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
   transition: var(--main-transition);
   -webkit-transition: var(--main-transition);
   -moz-transition: var(--main-transition);
@@ -320,14 +345,14 @@ button.main:hover {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border-radius: 10px;
   background-color: var(--main-bg);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
   overflow: hidden;
   color: black;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 .vans .vans-container .van-card a .image {
   width: 100%;
@@ -345,19 +370,25 @@ button.main:hover {
   font-weight: 600;
   font-size: 20px;
 }
-.vans .vans-container .van-card a .type {
+.type {
   padding: 0 15px 20px 15px;
 }
-.vans .vans-container .van-card a .type span {
+.type span {
   color: #ffead0;
   padding: 5px 15px;
-  background-color: var(--btn-color);
+  background-color: #e17654;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   font-weight: 500;
+}
+.type.rugged span {
+  background-color: #115e59;
+}
+.type.luxury span {
+  background-color: #161616;
 }
 /* end vans */
 /* van detail */
@@ -385,29 +416,19 @@ button.main:hover {
 .van-detail .card .image {
   overflow: hidden;
   width: 40%;
+}
+.van-detail .card .image img {
+  width: 100%;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
 }
-.van-detail .card .image img {
-  width: 100%;
-}
 .van-detail .card .content {
   flex: 1;
 }
-.van-detail .card .content .type {
-  background-color: #ffcc8d;
-  width: fit-content;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-}
+
 .van-detail .card .content button {
   padding: 10px 30px;
 }
@@ -420,3 +441,133 @@ button.main:hover {
   }
 }
 /* end van detail */
+/* host vans */
+.host-vans h3 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 34px;
+}
+.host-vans .container {
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.host-vans .van {
+  border-radius: 10px;
+  background-color: white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  transition: var(--main-transition);
+  -webkit-transition: var(--main-transition);
+  -moz-transition: var(--main-transition);
+  -ms-transition: var(--main-transition);
+  -o-transition: var(--main-transition);
+}
+.host-vans .van:hover {
+  box-shadow: 0 2px 10px 0px #d8d8d8;
+}
+.host-vans .van a {
+  color: var(--text-color);
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 20px;
+}
+.host-vans .van a .image {
+  width: 25%;
+  overflow: hidden;
+}
+.host-vans .van a .image img {
+  width: 100%;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.text h4 {
+  color: #161616;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+  margin: 0;
+}
+.text p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  margin: 0;
+}
+/* end host vans */
+/* host-van-detail */
+.host-van-detail a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+.host-van-detail .card {
+  background-color: white;
+  color: #161616;
+  padding: 20px;
+  margin: 40px auto;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.host-van-detail .card .top {
+  flex-basis: 50%;
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+.host-van-detail .card .nav {
+  flex-basis: 50%;
+  flex: 1;
+}
+.host-van-detail .card .top .image {
+  flex-basis: 50%;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  .host-van-detail .card .top .image {
+    flex-basis: 30%;
+  }
+  .host-van-detail .card .top {
+    flex-basis: 100%;
+  }
+  .host-van-detail .card .nav {
+    flex-basis: 100%;
+  }
+}
+.host-van-detail .card .top .image img {
+  width: 100%;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.host-van-detail .card nav {
+  background-color: inherit;
+}
+.host-van-detail .card p {
+  width: 100%;
+  flex: 1;
+}
+.host-van-detail .card .nav div:last-child {
+  font-weight: 600;
+}
+.host-van-detail .card .nav div:last-child span {
+  font-weight: normal;
+}
+/* end host-van-detail */

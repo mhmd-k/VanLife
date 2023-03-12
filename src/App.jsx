@@ -8,6 +8,8 @@ import Reviews from "./pages/Host/Reviews";
 import Income from "./pages/Host/Income";
 import VanDetail from "./pages/Vans/VanDetail";
 import Host from "./pages/Host/Host";
+import HostVans from "./pages/Host/HostVans";
+import HostVanDetail from "./pages/Host/HostVanDetail";
 
 function App() {
   return (
@@ -18,7 +20,9 @@ function App() {
           <Route path="host" element={<Host />}>
             <Route index element={<Dashboard />} />
             <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVans />} />
             <Route path="income" element={<Income />} />
+            <Route path="vans/:id" element={<HostVanDetail />} />
           </Route>
           <Route path="about" element={<About />} />
           <Route path="vans" element={<Vans />} />

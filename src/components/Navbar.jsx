@@ -1,28 +1,45 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logog.png";
 
 function Navbar() {
   return (
-    <nav>
-      <div className="container">
-        <div className="logo">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
+    <header>
+      <nav>
+        <div className="container">
+          <div className="logo">
+            <NavLink to="/">
+              <img src={logo} alt="logo" />
+            </NavLink>
+          </div>
+          <ul>
+            <li>
+              <NavLink
+                to="/host"
+                className={(e) => (e.isActive ? "active" : null)}
+              >
+                Host
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about"
+                className={(e) => (e.isActive ? "active" : null)}
+              >
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/vans"
+                className={(e) => (e.isActive ? "active" : null)}
+              >
+                Vans
+              </NavLink>
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li>
-            <Link to="/host">Host</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/vans">Vans</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
 

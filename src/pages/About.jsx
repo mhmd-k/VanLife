@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function About() {
   return (
     <>
@@ -18,7 +20,9 @@ function About() {
             </p>
             <div className="explore">
               <h3>Your destination is waiting. Your van is ready.</h3>
-              <button>Explore our vans</button>
+              <button>
+                <Link to="/vans">Explore our vans</Link>
+              </button>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import backArrow from "../../assets/images/Arrow 1.svg";
+import backArrow from "../../assets/icons/Arrow 1.svg";
 
 function VanDetail() {
   const [van, setVan] = useState(null);
@@ -26,7 +26,9 @@ function VanDetail() {
               <img src={van.imageUrl} alt="" />
             </div>
             <div className="content">
-              <div className="type">{van.type}</div>
+              <div className={`type ${van.type.toLowerCase()}`}>
+                <span>{van.type}</span>
+              </div>
               <h3>{van.name}</h3>
               <p>${van.price}/day</p>
               <p>{van.description}</p>

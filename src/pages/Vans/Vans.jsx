@@ -9,9 +9,23 @@ function Vans() {
       .then((res) => res.json())
       .then((data) => {
         setVans(data.vans);
-        console.log(data.vans);
+        setVans((prevVans) => {
+          return prevVans.map((van) => {
+            return { ...van, visibility: true };
+          });
+        });
       });
   }, []);
+
+  function filtervans(type) {
+    setVans((prevVans) => {
+      return prevVans.map((van) =>
+        van.type.toLowerCase() === type
+          ? { ...van, visibility: true }
+          : { ...van, visibility: false }
+      );
+    });
+  }
 
   const vansArr = vans.map((van) => {
     return (
@@ -23,6 +37,7 @@ function Vans() {
         name={van.name}
         price={van.price}
         type={van.type}
+        visibility={van.visibility}
       />
     );
   });
@@ -32,10 +47,24 @@ function Vans() {
       <div className="container">
         <h2>Explore our van options</h2>
         <ul className="filter">
-          <li>Simple</li>
-          <li>Luxury</li>
-          <li>Rugged</li>
-          <li>Clear filters</li>
+          <li onClick={() => filtervans("simple")}>Simple</li>
+          <li className="luxury" onClick={() => filtervans("luxury")}>
+            Luxury
+          </li>
+          <li className="rugged" onClick={() => filtervans("rugged")}>
+            Rugged
+          </li>
+          <li
+            onClick={() =>
+              setVans((prevVans) => {
+                return prevVans.map((van) => {
+                  return { ...van, visibility: true };
+                });
+              })
+            }
+          >
+            Clear filters
+          </li>
         </ul>
         <div className="vans-container">{vansArr}</div>
       </div>
