@@ -8,7 +8,7 @@ function Host() {
           <ul>
             <li>
               <NavLink
-                to="/host"
+                to="."
                 className={(e) => (e.isActive ? "active" : null)}
                 end
               >
@@ -17,7 +17,7 @@ function Host() {
             </li>
             <li>
               <NavLink
-                to="/host/Income"
+                to="income"
                 className={(e) => (e.isActive ? "active" : null)}
               >
                 Income
@@ -25,7 +25,7 @@ function Host() {
             </li>
             <li>
               <NavLink
-                to="/host/vans"
+                to="vans"
                 className={(e) => (e.isActive ? "active" : null)}
               >
                 Vans
@@ -33,7 +33,7 @@ function Host() {
             </li>
             <li>
               <NavLink
-                to="/host/reviews"
+                to="reviews"
                 className={(e) => (e.isActive ? "active" : null)}
               >
                 Reviews

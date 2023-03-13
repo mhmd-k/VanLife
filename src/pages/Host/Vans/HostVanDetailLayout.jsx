@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams, NavLink, Link } from "react-router-dom";
-import BackArrow from "../../assets/icons/Arrow 1.svg";
+import { useParams, NavLink, Link, Outlet } from "react-router-dom";
+import BackArrow from "../../../assets/icons/Arrow 1.svg";
 
-function HostVanDetail() {
+function HostVanDetailLayout() {
   const [van, setVan] = useState(null);
   const params = useParams();
 
@@ -14,15 +14,13 @@ function HostVanDetail() {
       });
   }, []);
 
-  console.log(van);
-
   return (
     <div className="host-van-detail">
       <div className="container">
-        <Link to="/host/vans">
+        <Link to=".." relative="path">
           <img src={BackArrow} alt="back icon" /> Back to all vans
         </Link>
-        {van ? (
+        {van && (
           <div className="card">
             <div className="top">
               <div className="image">
@@ -40,28 +38,39 @@ function HostVanDetail() {
               <nav>
                 <ul>
                   <li>
-                    <Link>Details</Link>
+                    <NavLink
+                      end
+                      to={`/host/vans/${van.id}`}
+                      className={(e) => (e.isActive ? "active" : null)}
+                    >
+                      Details
+                    </NavLink>
                   </li>
                   <li>
-                    <Link>Prices</Link>
+                    <NavLink
+                      to={`/host/vans/${van.id}/prices`}
+                      className={(e) => (e.isActive ? "active" : null)}
+                    >
+                      Prices
+                    </NavLink>
                   </li>
                   <li>
-                    <Link>Photos</Link>
+                    <NavLink
+                      to={`/host/vans/${van.id}/photos`}
+                      className={(e) => (e.isActive ? "active" : null)}
+                    >
+                      Photos
+                    </NavLink>
                   </li>
                 </ul>
               </nav>
-              <p>{van.description}</p>
-              <div>
-                Visibility: <span>Public</span>
-              </div>
+              <Outlet context={[van, setVan]} />
             </div>
           </div>
-        ) : (
-          <h3 style={{ textAlign: "center" }}>Loading...</h3>
         )}
       </div>
     </div>
   );
 }
 
-export default HostVanDetail;
+export default HostVanDetailLayout;

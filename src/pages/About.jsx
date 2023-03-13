@@ -20,9 +20,7 @@ function About() {
             </p>
             <div className="explore">
               <h3>Your destination is waiting. Your van is ready.</h3>
-              <button>
-                <Link to="/vans">Explore our vans</Link>
-              </button>
+              <Link to="/vans">Explore our vans</Link>
             </div>
           </div>
         </div>

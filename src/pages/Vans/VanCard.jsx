@@ -2,11 +2,8 @@ import { Link } from "react-router-dom";
 
 function VanCard(props) {
   return (
-    <div
-      className="van-card"
-      style={{ display: props.visibility ? "block" : "none" }}
-    >
-      <Link to={`/vans/${props.id}`}>
+    <div className="van-card">
+      <Link to={`./${props.id}`}>
         <div className="image">
           <img src={props.image} alt="van image" />
         </div>

@@ -17,7 +17,7 @@ function VanDetail() {
   return (
     <div className="van-detail">
       <div className="container">
-        <Link to="/vans">
+        <Link to=".." relative="path">
           <img src={backArrow} alt="" /> Back to all vans
         </Link>
         {van ? (

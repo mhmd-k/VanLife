@@ -54,9 +54,6 @@ button {
 a {
   text-decoration: none;
 }
-button a {
-  color: white;
-}
 ul {
   list-style: none;
   margin: 0;
@@ -169,7 +166,7 @@ nav a:hover {
   font-size: 16px;
   line-height: 24px;
 }
-button.main {
+a.main {
   background-color: var(--btn-color);
   color: white;
   border-radius: 5px;
@@ -182,8 +179,11 @@ button.main {
   -moz-transition: var(--main-transition);
   -ms-transition: var(--main-transition);
   -o-transition: var(--main-transition);
+  color: white;
+  display: block;
+  text-align: center;
 }
-button.main:hover {
+a.main:hover {
   opacity: 0.8;
 }
 /* end home page */
@@ -248,7 +248,7 @@ button.main:hover {
   font-size: 24px;
   line-height: 30px;
 }
-.about .content .explore button {
+.about .content .explore a {
   width: fit-content;
   background-color: black;
   padding: 10px 20px;
@@ -289,6 +289,9 @@ button.main:hover {
   padding: 5px 15px;
   font-weight: 500;
 }
+.vans ul li a {
+  color: white;
+}
 .vans ul li:not(:last-of-type) {
   color: white;
   background-color: #e17654;
@@ -315,6 +318,10 @@ button.main:hover {
 .vans ul li:last-of-type {
   text-decoration: underline;
 }
+.vans ul li:last-of-type a {
+  color: var(--text-color);
+}
+
 .vans .vans-container {
   padding: 50px 0;
   display: grid;
@@ -399,6 +406,7 @@ button.main:hover {
   margin-top: 20px;
   display: block;
   color: var(--text-color);
+  text-decoration: underline;
 }
 .van-detail .container {
   display: flex;
@@ -506,7 +514,7 @@ button.main:hover {
 }
 /* end host vans */
 /* host-van-detail */
-.host-van-detail a {
+.host-van-detail .container > a {
   color: var(--text-color);
   text-decoration: underline;
 }
@@ -523,6 +531,7 @@ button.main:hover {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 20px;
 }
 .host-van-detail .card .top {
   flex-basis: 50%;
@@ -540,7 +549,7 @@ button.main:hover {
 }
 @media (max-width: 767px) {
   .host-van-detail .card .top .image {
-    flex-basis: 30%;
+    flex-basis: 40%;
   }
   .host-van-detail .card .top {
     flex-basis: 100%;
@@ -557,6 +566,9 @@ button.main:hover {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
 }
+.host-van-detail .card .top .text {
+  margin-top: 10px;
+}
 .host-van-detail .card nav {
   background-color: inherit;
 }
@@ -564,10 +576,22 @@ button.main:hover {
   width: 100%;
   flex: 1;
 }
-.host-van-detail .card .nav div:last-child {
-  font-weight: 600;
+.host-van-detail .card .detail {
+  margin: 20px 0;
 }
-.host-van-detail .card .nav div:last-child span {
-  font-weight: normal;
+.van-images {
+  margin: 30px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, minmax(30px, 1fr));
+  gap: 10px;
+}
+.van-images div img {
+  width: 100%;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 /* end host-van-detail */
