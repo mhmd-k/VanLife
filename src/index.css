@@ -292,9 +292,9 @@ a.main:hover {
 .vans ul li a {
   color: white;
 }
-.vans ul li:not(:last-of-type) {
+.vans ul li:not(.filter) {
   color: white;
-  background-color: #e17654;
+  background-color: #607d8b;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -306,22 +306,24 @@ a.main:hover {
   -ms-transition: var(--main-transition);
   -o-transition: var(--main-transition);
 }
-.vans ul li.rugged {
+.vans ul li.selected:first-of-type,
+.vans ul li:first-of-type:hover {
+  background-color: var(--btn-color);
+}
+.vans ul li.rugged.selected,
+.vans ul li.rugged:hover {
   background-color: #115e59;
 }
-.vans ul li.luxury {
+.vans ul li.luxury.selected,
+.vans ul li.luxury:hover {
   background-color: #161616;
 }
-.vans ul li:not(:last-of-type):hover {
-  opacity: 0.8;
-}
-.vans ul li:last-of-type {
+.vans ul li.filter {
   text-decoration: underline;
 }
-.vans ul li:last-of-type a {
+.vans ul li.filter a {
   color: var(--text-color);
 }
-
 .vans .vans-container {
   padding: 50px 0;
   display: grid;
@@ -595,3 +597,58 @@ a.main:hover {
   -o-border-radius: 5px;
 }
 /* end host-van-detail */
+/* NotFound page */
+.not-found {
+  max-width: 300px;
+  margin: auto;
+  height: calc(100vh - 130px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.not-found h1 {
+  text-align: center;
+}
+.not-found a {
+  padding: 10px 20px;
+  background-color: #161616;
+}
+/* end NotFound page */
+/* sign in */
+.sign-in form .container {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  margin: auto;
+}
+.sign-in form input {
+  padding: 3px 5px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+.sign-in form input:focus {
+  outline: none;
+}
+.sign-in form button {
+  width: 100%;
+  padding: 10px 0;
+  color: white;
+  background-color: var(--btn-color);
+  font-weight: 700;
+  font-size: 16px;
+}
+.sign-in form a {
+  color: var(--btn-color);
+  font-weight: 700;
+}
+/* end sign in */

@@ -1,7 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Vans from "./pages/Vans/Vans";
+import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Host/Dashboard";
 import Reviews from "./pages/Host/Reviews";
@@ -13,9 +18,46 @@ import Details from "./pages/Host/Vans/Details";
 import HostVanDetailLayout from "./pages/Host/Vans/HostVanDetailLayout";
 import Prices from "./pages/Host/Vans/Prices";
 import Photos from "./pages/Host/Vans/Photos";
+import NotFound from "./pages/NotFound";
+import LogIn from "./pages/SignIn";
+
+const router = createBrowserRouter(
+  createRoutesFromElements([
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="host" element={<Host />}>
+        <Route index element={<Dashboard />} />
+        <Route path="reviews" element={<Reviews />} />
+        <Route path="vans" element={<HostVans />} />
+        <Route path="income" element={<Income />} />
+        <Route path="vans/:id" element={<HostVanDetailLayout />}>
+          <Route index element={<Details />} />
+          <Route path="prices" element={<Prices />} />
+          <Route path="photos" element={<Photos />} />
+        </Route>
+      </Route>
+      <Route path="about" element={<About />} />
+      <Route
+        path="vans"
+        element={<Vans />}
+        loader={vansLoader}
+        errorElement={<>please check your connection and try again</>}
+      />
+      <Route path="vans/:id" element={<VanDetail />} />
+      <Route path="sign-in" element={<LogIn />} />
+    </Route>,
+    <Route path="*" element={<NotFound />}></Route>,
+  ])
+);
 
 function App() {
-  return (
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+
+/*
+    the old version of react router that does not support data api
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -35,9 +77,7 @@ function App() {
           <Route path="vans" element={<Vans />} />
           <Route path="vans/:id" element={<VanDetail />} />
         </Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
-  );
-}
-
-export default App;
+*/

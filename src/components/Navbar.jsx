@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logog.png";
-
+import userIcon from "../assets/icons/user.svg";
 function Navbar() {
   return (
     <header>
@@ -34,6 +34,14 @@ function Navbar() {
                 className={(e) => (e.isActive ? "active" : null)}
               >
                 Vans
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/sign-in"
+                className={(e) => (e.isActive ? "active" : null)}
+              >
+                <img src={userIcon} alt="user icon" />
               </NavLink>
             </li>
           </ul>

@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import VanCard from "./VanCard";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, useLoaderData } from "react-router-dom";
+import { getVans } from "../../fetchVans";
+
+export function loader() {
+  return getVans();
+}
 
 function Vans() {
-  const [vans, setVans] = useState([]);
+  const vans = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
 
-  useEffect(() => {
-    fetch("/api/vans")
-      .then((res) => res.json())
-      .then((data) => {
-        setVans(data.vans);
-      });
-  }, []);
-
   const filteredVans = typeFilter
-    ? vans.filter((van) => van.type.toLowerCase() === typeFilter)
+    ? vans.filter((van) => van.type === typeFilter)
     : vans;
 
   const vansArr = filteredVans.map((van) => {
@@ -29,6 +26,7 @@ function Vans() {
         name={van.name}
         price={van.price}
         type={van.type}
+        filter={searchParams.toString()}
       />
     );
   });
@@ -38,22 +36,31 @@ function Vans() {
       <div className="container">
         <h2>Explore our van options</h2>
         <ul className="filter">
-          <li onClick={() => setSearchParams({ type: "simple" })}>Simple </li>
           <li
-            className="luxury"
+            className={typeFilter === "simple" ? "selected" : ""}
+            onClick={() => setSearchParams({ type: "simple" })}
+          >
+            Simple{" "}
+          </li>
+          <li
+            className={typeFilter === "luxury" ? "luxury selected" : "luxury"}
             onClick={() => setSearchParams({ type: "luxury" })}
           >
             Luxury
           </li>
           <li
-            className="rugged"
+            className={typeFilter === "rugged" ? "rugged selected" : "rugged"}
             onClick={() => setSearchParams({ type: "rugged" })}
           >
             Rugged
           </li>
-          <li onClick={() => setSearchParams({})}>Clear Filter</li>
+          {typeFilter && (
+            <li className="filter" onClick={() => setSearchParams({})}>
+              Clear Filter
+            </li>
+          )}
         </ul>
-        <div className="vans-container">{vans.length > 0 && vansArr}</div>
+        <div className="vans-container">{vansArr}</div>
       </div>
     </div>
   );

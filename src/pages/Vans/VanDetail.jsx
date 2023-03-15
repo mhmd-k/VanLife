@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import backArrow from "../../assets/icons/Arrow 1.svg";
 
 function VanDetail() {
   const [van, setVan] = useState(null);
   const params = useParams();
-
-  console.log(van);
+  const location = useLocation();
 
   useEffect(() => {
     fetch(`/api/vans/${params.id}`)
@@ -14,11 +13,16 @@ function VanDetail() {
       .then((data) => setVan(data.vans));
   }, []);
 
+  const filter = location.state?.filter || "";
+  const type = location.state?.type || "all";
+
   return (
     <div className="van-detail">
       <div className="container">
-        <Link to=".." relative="path">
-          <img src={backArrow} alt="" /> Back to all vans
+        {/* this link will take you to the vans page and if there 
+        is a filter in the vans page this link will restore it */}
+        <Link to={`../?${filter}`} relative="path">
+          <img src={backArrow} alt="" /> Back to {type} vans
         </Link>
         {van ? (
           <div className="card">
