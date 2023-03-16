@@ -1,10 +1,16 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 function AuthRequired() {
   const auth = { token: "123" };
+  const location = useLocation();
 
   if (!auth.token)
-    return <Navigate to="login" state={{ message: "You must log in first" }} />;
+    return (
+      <Navigate
+        to="login"
+        state={{ message: "You must log in first", from: location.pathname }}
+      />
+    );
 
   return <Outlet />;
 }

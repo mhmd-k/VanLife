@@ -19,7 +19,7 @@ import HostVanDetailLayout from "./pages/Host/Vans/HostVanDetailLayout";
 import Prices from "./pages/Host/Vans/Prices";
 import Photos from "./pages/Host/Vans/Photos";
 import NotFound from "./pages/NotFound";
-import LogIn from "./pages/SignIn";
+import LogIn, { action as loginAction } from "./pages/SignIn";
 import AuthRequired from "./components/AuthRequired";
 
 const router = createBrowserRouter(
@@ -47,7 +47,7 @@ const router = createBrowserRouter(
         errorElement={<>please check your connection and try again</>}
       />
       <Route path="vans/:id" element={<VanDetail />} />
-      <Route path="login" element={<LogIn />} />
+      <Route path="login" element={<LogIn />} action={loginAction} />
     </Route>,
     <Route path="*" element={<NotFound />}></Route>,
   ])

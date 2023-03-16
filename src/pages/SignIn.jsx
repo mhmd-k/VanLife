@@ -1,89 +1,69 @@
 import { useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  Form,
+  useActionData,
+  redirect,
+  useNavigation,
+} from "react-router-dom";
 import { loginUser } from "../api";
 
-function LogIn() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState("idle");
+export async function action({ request }) {
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const pass = formData.get("password");
+  try {
+    const data = await loginUser({
+      email: email,
+      password: pass,
+    });
+    return data;
+  } catch (err) {
+    return {
+      error: err.message,
+    };
+  }
+}
 
+function LogIn() {
   const location = useLocation();
   const navigate = useNavigate();
-
-  const messageRef = useRef();
-  function handleChange(e) {
-    const { value, name } = e.target;
-    setFormData((prevFormData) => {
-      return { ...prevFormData, [name]: value };
-    });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setStatus("submitting");
-    setError(null);
-    loginUser(formData)
-      .then((data) => {
-        console.log(data);
-        navigate("/host");
-      })
-      .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setStatus("idle");
-      });
+  const data = useActionData();
+  const navigation = useNavigation();
+  const from = location.state?.from || "/host";
+  console.log(data);
+  if (data?.token) {
+    navigate(from, { replace: true });
   }
 
   return (
     <div className="sign-in">
       {location.state?.message && (
-        <div ref={messageRef} className="msg">
-          {location.state.message}{" "}
-          <button
-            onClick={() => {
-              messageRef.current.remove();
-            }}
-          >
-            close
-          </button>
-        </div>
+        <div className="msg">{location.state.message}</div>
       )}
-      <form onSubmit={handleSubmit}>
+      <Form action="/login" method="post">
         <div className="container">
           <h2>Sign in to your account</h2>
-          {error && <>{error.message}</>}
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email address"
-          />
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Password"
-          />
+          {data?.error && <>{data.error}</>}
+          <input type="email" name="email" placeholder="Email address" />
+          <input type="password" name="password" placeholder="Password" />
           <button
             className="submit"
             style={{
-              pointerEvents: status === "submitting" ? "none" : "visible",
-              opacity: status === "submitting" ? 0.7 : 1,
+              pointerEvents:
+                navigation.state === "submitting" ? "none" : "visible",
+              opacity: navigation.state === "submitting" ? 0.7 : 1,
             }}
           >
-            {status === "submitting" ? "..." : "Log in"}
+            {navigation.state === "submitting" ? "..." : "Log in"}
           </button>
           <p>
             Don't have an account? <Link>Create one now</Link>
           </p>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

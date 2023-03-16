@@ -70,7 +70,28 @@ footer {
 }
 main {
   min-height: calc(100vh - 120px);
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
+/* loading animation */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--btn-color);
+  border-top: 5px solid #f3f3f3;
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+/* end loading animation */
 /* navbar */
 nav {
   background-color: var(--main-bg);
