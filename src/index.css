@@ -616,6 +616,20 @@ a.main:hover {
 }
 /* end NotFound page */
 /* sign in */
+.sign-in .msg {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff695e;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 0;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+}
 .sign-in form .container {
   width: 100%;
   max-width: 450px;

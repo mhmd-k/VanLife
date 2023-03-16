@@ -20,20 +20,23 @@ import Prices from "./pages/Host/Vans/Prices";
 import Photos from "./pages/Host/Vans/Photos";
 import NotFound from "./pages/NotFound";
 import LogIn from "./pages/SignIn";
+import AuthRequired from "./components/AuthRequired";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
-      <Route path="host" element={<Host />}>
-        <Route index element={<Dashboard />} />
-        <Route path="reviews" element={<Reviews />} />
-        <Route path="vans" element={<HostVans />} />
-        <Route path="income" element={<Income />} />
-        <Route path="vans/:id" element={<HostVanDetailLayout />}>
-          <Route index element={<Details />} />
-          <Route path="prices" element={<Prices />} />
-          <Route path="photos" element={<Photos />} />
+      <Route element={<AuthRequired />}>
+        <Route path="host" element={<Host />}>
+          <Route index element={<Dashboard />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="vans" element={<HostVans />} />
+          <Route path="income" element={<Income />} />
+          <Route path="vans/:id" element={<HostVanDetailLayout />}>
+            <Route index element={<Details />} />
+            <Route path="prices" element={<Prices />} />
+            <Route path="photos" element={<Photos />} />
+          </Route>
         </Route>
       </Route>
       <Route path="about" element={<About />} />
@@ -44,7 +47,7 @@ const router = createBrowserRouter(
         errorElement={<>please check your connection and try again</>}
       />
       <Route path="vans/:id" element={<VanDetail />} />
-      <Route path="sign-in" element={<LogIn />} />
+      <Route path="login" element={<LogIn />} />
     </Route>,
     <Route path="*" element={<NotFound />}></Route>,
   ])

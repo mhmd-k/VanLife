@@ -38,7 +38,7 @@ function Navbar() {
             </li>
             <li>
               <NavLink
-                to="/sign-in"
+                to="/login"
                 className={(e) => (e.isActive ? "active" : null)}
               >
                 <img src={userIcon} alt="user icon" />
