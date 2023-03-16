@@ -10,7 +10,7 @@ function HostVanDetailLayout() {
     fetch(`/api/host/vans/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
-        setVan(...data.vans);
+        setVan(data.vans);
       });
   }, []);
 

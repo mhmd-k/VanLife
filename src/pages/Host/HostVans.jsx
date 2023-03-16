@@ -12,8 +12,6 @@ function HostVans() {
       });
   }, []);
 
-  console.log(hostVans);
-
   const vans = hostVans.map((van) => {
     return (
       <div className="van" key={van.id}>
