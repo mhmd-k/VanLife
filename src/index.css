@@ -70,9 +70,6 @@ footer {
 }
 main {
   min-height: calc(100vh - 120px);
-  display: grid;
-  justify-content: center;
-  align-items: center;
 }
 /* loading animation */
 @keyframes spinner {
@@ -82,6 +79,12 @@ main {
   100% {
     transform: rotate(360deg);
   }
+}
+.spinner-container {
+  min-height: calc(100vh - 140px);
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 .loading-spinner {
   width: 50px;

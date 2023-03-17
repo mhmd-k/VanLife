@@ -1,18 +1,49 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
+import { Await, Link, useLoaderData, defer } from "react-router-dom";
+
+async function fetchVans() {
+  const res = await fetch("/api/host/vans");
+  const data = await res.json();
+  if (!res.ok) {
+    throw {
+      message: data.message,
+      statusText: res.statusText,
+      status: res.status,
+    };
+  }
+  return data;
+}
 
 function HostVans() {
-  const [hostVans, setHostVans] = useState([]);
+  const [vans, setVans] = useState([]);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState("idle");
+
+  console.log(vans);
+  console.log(error);
+  console.log(status);
 
   useEffect(() => {
-    fetch("/api/host/vans")
-      .then((res) => res.json())
+    setStatus("fetching");
+    fetchVans()
       .then((data) => {
-        setHostVans(data.vans);
+        console.log(data);
+        setVans(data.vans);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err);
+      })
+      .finally(() => {
+        setStatus("idle");
       });
   }, []);
 
-  const vans = hostVans.map((van) => {
+  if (error) {
+    return <>Please check you internet connition and try again</>;
+  }
+
+  const vansElements = vans.map((van) => {
     return (
       <div className="van" key={van.id}>
         <Link to={`/host/vans/${van.id}`}>
@@ -30,8 +61,16 @@ function HostVans() {
 
   return (
     <div className="host-vans">
-      <h3>Your Listed Vans</h3>
-      <div className="container">{vans}</div>
+      {status === "fetching" ? (
+        <div className="spinner-container">
+          <div className="loading-spinner"></div>
+        </div>
+      ) : (
+        <>
+          <h3>Your Listed Vans</h3>
+          <div className="container">{vansElements}</div>
+        </>
+      )}
     </div>
   );
 }

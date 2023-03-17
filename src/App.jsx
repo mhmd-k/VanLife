@@ -40,12 +40,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="about" element={<About />} />
-      <Route
-        path="vans"
-        element={<Vans />}
-        loader={vansLoader}
-        errorElement={<>please check your connection and try again</>}
-      />
+      <Route path="vans" element={<Vans />} loader={vansLoader} />
       <Route path="vans/:id" element={<VanDetail />} />
       <Route path="login" element={<LogIn />} action={loginAction} />
     </Route>,
