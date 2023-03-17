@@ -42,7 +42,11 @@ function Host() {
           </ul>
         </div>
       </nav>
-      <Outlet />
+      <div className="host">
+        <div className="container">
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 }

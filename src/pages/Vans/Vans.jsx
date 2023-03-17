@@ -2,6 +2,7 @@ import VanCard from "./VanCard";
 import { useSearchParams, useLoaderData, defer, Await } from "react-router-dom";
 import { getVans } from "../../api";
 import { Suspense } from "react";
+import Spinner from "../../components/Spinner";
 
 export function loader() {
   return defer({ vans: getVans() });
@@ -68,13 +69,7 @@ function Vans() {
   }
 
   return (
-    <Suspense
-      fallback={
-        <div className="spinner-container">
-          <div className="loading-spinner"></div>
-        </div>
-      }
-    >
+    <Suspense fallback={<Spinner />}>
       <Await resolve={vansPromise.vans}>{vansElements}</Await>
     </Suspense>
   );

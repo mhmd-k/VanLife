@@ -1,48 +1,13 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import { Await, Link, useLoaderData, defer } from "react-router-dom";
+import { getHostVans } from "../../api";
+import Spinner from "../../components/Spinner";
 
-async function fetchVans() {
-  const res = await fetch("/api/host/vans");
-  const data = await res.json();
-  if (!res.ok) {
-    throw {
-      message: data.message,
-      statusText: res.statusText,
-      status: res.status,
-    };
-  }
-  return data;
+export function loader() {
+  return defer({ vans: getHostVans() });
 }
 
-function HostVans() {
-  const [vans, setVans] = useState([]);
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState("idle");
-
-  console.log(vans);
-  console.log(error);
-  console.log(status);
-
-  useEffect(() => {
-    setStatus("fetching");
-    fetchVans()
-      .then((data) => {
-        console.log(data);
-        setVans(data.vans);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(err);
-      })
-      .finally(() => {
-        setStatus("idle");
-      });
-  }, []);
-
-  if (error) {
-    return <>Please check you internet connition and try again</>;
-  }
-
+function renderVans(vans) {
   const vansElements = vans.map((van) => {
     return (
       <div className="van" key={van.id}>
@@ -60,17 +25,21 @@ function HostVans() {
   });
 
   return (
+    <>
+      <h2>Your Listed Vans</h2>
+      <div className="container">{vansElements}</div>
+    </>
+  );
+}
+
+function HostVans() {
+  const vansPromise = useLoaderData();
+
+  return (
     <div className="host-vans">
-      {status === "fetching" ? (
-        <div className="spinner-container">
-          <div className="loading-spinner"></div>
-        </div>
-      ) : (
-        <>
-          <h3>Your Listed Vans</h3>
-          <div className="container">{vansElements}</div>
-        </>
-      )}
+      <Suspense fallback={<Spinner />}>
+        <Await resolve={vansPromise.vans}>{renderVans}</Await>
+      </Suspense>
     </div>
   );
 }

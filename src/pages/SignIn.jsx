@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect } from "react";
 import {
   Link,
   useLocation,
   useNavigate,
   Form,
   useActionData,
-  redirect,
   useNavigation,
 } from "react-router-dom";
 import { loginUser } from "../api";
@@ -33,10 +32,12 @@ function LogIn() {
   const data = useActionData();
   const navigation = useNavigation();
   const from = location.state?.from || "/host";
-  console.log(data);
-  if (data?.token) {
-    navigate(from, { replace: true });
-  }
+
+  useEffect(() => {
+    if (data?.token) {
+      navigate(from, { replace: true });
+    }
+  }, [data]);
 
   return (
     <div className="sign-in">

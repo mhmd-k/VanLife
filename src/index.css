@@ -148,7 +148,7 @@ nav a:hover {
 /* home page */
 .landing {
   min-height: calc(100vh - 120px);
-  background-image: url(./assets/images/landing-image.png);
+  background-image: url(./assets/images/home-hero.png);
   background-position: center;
   background-size: cover;
   position: relative;
@@ -218,7 +218,7 @@ a.main:hover {
   background-color: var(--main-bg);
 }
 .about .image {
-  background-image: url(./assets/images/about.png);
+  background-image: url(./assets/images/about-hero.png);
   width: 40%;
   background-position: center;
   background-size: cover;
@@ -476,7 +476,7 @@ a.main:hover {
 }
 /* end van detail */
 /* host vans */
-.host-vans h3 {
+.host-vans h2 {
   text-align: center;
   font-weight: 700;
   font-size: 32px;
@@ -485,7 +485,7 @@ a.main:hover {
 .host-vans .container {
   margin: 40px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   justify-content: center;
   align-items: center;
@@ -690,3 +690,183 @@ a.main:hover {
   font-weight: 700;
 }
 /* end sign in */
+/* host */
+.host .top-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+.host h2 {
+  font-weight: 700;
+  font-size: 32px;
+  margin-right: 20px;
+}
+.host h2 + p {
+  margin: 0;
+  color: var(--text-color);
+}
+.host h2 + p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.host a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+.host .host-vans a {
+  text-decoration: none;
+}
+/* end host */
+/* host dashboard */
+.host-dashboard-earnings {
+  background-color: #ffead0;
+  padding: 37px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.host-dashboard-earnings > .info > h1 {
+  font-size: 36px;
+  color: #161616;
+  margin: 0;
+}
+.host-dashboard-earnings > .info > p {
+  color: var(--text-color);
+}
+.host-dashboard-earnings > .info > p > span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.host-dashboard-earnings > .info > h2 {
+  margin: 0;
+  font-size: 38px;
+  color: #161616;
+  font-weight: 900;
+}
+.host-dashboard-reviews {
+  background-color: #ffddb2;
+  padding: 25px 26px;
+  display: flex;
+  align-items: center;
+}
+.host-dashboard-reviews > h2 {
+  margin: 0;
+}
+.host-dashboard-reviews .star {
+  color: var(--btn-color);
+  margin-left: 15px;
+  font-size: 25px;
+}
+.host-dashboard-reviews p {
+  margin-left: 5px;
+  font-size: 20px;
+  color: var(--text-color);
+  margin-right: auto;
+}
+.host-dashboard-reviews p > span {
+  font-weight: bold;
+  color: #161616;
+}
+/* end host dashboard */
+/* host income */
+.host-income {
+  padding-inline: 26px;
+  color: #161616;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+}
+@media (max-width: 991px) {
+  .host-income {
+    grid-template-columns: 1fr;
+  }
+}
+.host-income:first-child {
+  text-align: center;
+}
+.host-income > p {
+  color: var(--text-color);
+}
+.host-income > p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+img.graph {
+  width: 100%;
+  max-width: 500px;
+}
+.host-income .info-header {
+  margin-bottom: 20px;
+}
+.host-income .info-header > p {
+  color: var(--text-color);
+}
+.host-income .info-header > p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.host-income .transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 31px;
+  padding: 35px 29px;
+  border-radius: 6px;
+}
+.host-income .transaction > h3 {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+}
+.host-income .transaction > p {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text-color);
+}
+/* end host income */
+/* host reviews */
+.host-reviews {
+  padding-inline: 26px;
+  color: #161616;
+}
+@media (max-width: 767px) {
+  .host-reviews .top-text {
+    justify-content: start;
+  }
+  .host h2 {
+    font-size: 24px;
+  }
+}
+.host-reviews .image {
+  text-align: center;
+}
+.host-reviews .image img {
+  margin-bottom: 36px;
+  margin: auto;
+}
+.host-reviews .review {
+  margin-block: 25px;
+}
+.host-reviews .review .info {
+  display: flex;
+}
+.host-reviews .review .name {
+  color: #161616;
+  margin-right: 10px;
+  font-weight: 600;
+}
+.host-reviews .review .date {
+  color: #8c8c8c;
+}
+.host-reviews hr {
+  background-color: #c7c7c7;
+  height: 1px;
+  border: 0;
+}
+.host-reviews .review-star {
+  color: #ff8c38;
+  margin-right: 5px;
+}
+/* end host reviews */
