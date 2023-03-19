@@ -21,6 +21,7 @@ import Photos from "./pages/Host/Vans/Photos";
 import Error from "./pages/Error";
 import LogIn, { action as loginAction } from "./pages/SignIn";
 import AuthRequired from "./components/AuthRequired";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
         errorElement={<Error />}
       />
       <Route path="login" element={<LogIn />} action={loginAction} />
+      <Route path="signup" element={<SignUp />} />
     </Route>,
     <Route path="*" element={<Error />}></Route>,
   ])

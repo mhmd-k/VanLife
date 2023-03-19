@@ -8,7 +8,7 @@ function VanCard(props) {
         state={{ filter: props.filter, type: props.type }}
       >
         <div className="image">
-          <img src={props.image} alt="van image" />
+          <img src={props.image} alt={`${props.type} van`} />
         </div>
         <div className="info">
           <div>{props.name}</div>

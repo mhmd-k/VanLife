@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, Link, Outlet } from "react-router-dom";
-import BackArrow from "../../../assets/icons/Arrow 1.svg";
+import { BiArrowBack } from "react-icons/bi";
 
 function HostVanDetailLayout() {
   const [van, setVan] = useState(null);
@@ -18,13 +18,13 @@ function HostVanDetailLayout() {
     <div className="host-van-detail">
       <div className="container">
         <Link to=".." relative="path">
-          <img src={BackArrow} alt="back icon" /> Back to all vans
+          <BiArrowBack /> Back to all vans
         </Link>
         {van && (
           <div className="card">
             <div className="top">
               <div className="image">
-                <img src={van.imageUrl} alt="van image" />
+                <img src={van.imageUrl} alt={van.name} />
               </div>
               <div className="text">
                 <div className={`type ${van.type.toLowerCase()}`}>

@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 function AuthRequired() {
-  const auth = { token: "123" };
+  const auth = { token: null };
   const location = useLocation();
 
   if (!auth.token)

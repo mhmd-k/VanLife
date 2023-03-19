@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logog.png";
-import userIcon from "../assets/icons/user.svg";
+import { BiUserCircle } from "react-icons/bi";
 function Navbar() {
   return (
     <header>
@@ -41,7 +41,7 @@ function Navbar() {
                 to="/login"
                 className={(e) => (e.isActive ? "active" : null)}
               >
-                <img src={userIcon} alt="user icon" />
+                <BiUserCircle />
               </NavLink>
             </li>
           </ul>

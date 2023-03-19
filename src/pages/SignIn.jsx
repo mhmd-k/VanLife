@@ -6,18 +6,17 @@ import {
   Form,
   useActionData,
   useNavigation,
+  NavLink,
 } from "react-router-dom";
 import { loginUser } from "../api";
+import { BiLogIn } from "react-icons/bi";
 
 export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const pass = formData.get("password");
   try {
-    const data = await loginUser({
-      email: email,
-      password: pass,
-    });
+    const data = await loginUser({ email, pass });
     return data;
   } catch (err) {
     return {
@@ -58,10 +57,19 @@ function LogIn() {
               opacity: navigation.state === "submitting" ? 0.7 : 1,
             }}
           >
-            {navigation.state === "submitting" ? "..." : "Log in"}
+            {navigation.state === "submitting" ? (
+              "..."
+            ) : (
+              <>
+                Log in <BiLogIn />
+              </>
+            )}
           </button>
           <p>
-            Don't have an account? <Link>Create one now</Link>
+            Don't have an account?{" "}
+            <NavLink to="../signup" state={location.state}>
+              Create one now
+            </NavLink>
           </p>
         </div>
       </Form>

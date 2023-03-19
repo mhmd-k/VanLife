@@ -6,7 +6,7 @@ import {
   Await,
   useLoaderData,
 } from "react-router-dom";
-import backArrow from "../../assets/icons/Arrow 1.svg";
+import { BiArrowBack } from "react-icons/bi";
 import { getVans } from "../../api";
 import Spinner from "../../components/Spinner";
 
@@ -26,11 +26,11 @@ function VanDetail() {
         {/* this link will take you to the vans page and if there
         is a filter in the vans page this link will restore it */}
         <Link to={`../?${filter}`} relative="path">
-          <img src={backArrow} alt="" /> Back to {type} vans
+          <BiArrowBack /> to {type} vans
         </Link>
         <div className="card">
           <div className="image">
-            <img src={van.imageUrl} alt="" />
+            <img src={van.imageUrl} alt={van.name} />
           </div>
           <div className="content">
             <div className={`type ${van.type.toLowerCase()}`}>

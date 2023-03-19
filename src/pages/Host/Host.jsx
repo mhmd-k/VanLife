@@ -1,4 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { SiSimpleanalytics } from "react-icons/si";
+import { BiCoinStack } from "react-icons/bi";
+import { BsFillBusFrontFill } from "react-icons/bs";
+import { BsLayoutTextSidebar } from "react-icons/bs";
 
 function Host() {
   return (
@@ -12,7 +16,13 @@ function Host() {
                 className={(e) => (e.isActive ? "active" : null)}
                 end
               >
-                Dashboard
+                {window.innerWidth > 767 ? (
+                  <>
+                    Dashboard <SiSimpleanalytics />
+                  </>
+                ) : (
+                  <SiSimpleanalytics />
+                )}
               </NavLink>
             </li>
             <li>
@@ -20,7 +30,13 @@ function Host() {
                 to="income"
                 className={(e) => (e.isActive ? "active" : null)}
               >
-                Income
+                {window.innerWidth > 767 ? (
+                  <>
+                    Income <BiCoinStack />
+                  </>
+                ) : (
+                  <BiCoinStack />
+                )}
               </NavLink>
             </li>
             <li>
@@ -28,7 +44,13 @@ function Host() {
                 to="vans"
                 className={(e) => (e.isActive ? "active" : null)}
               >
-                Vans
+                {window.innerWidth > 767 ? (
+                  <>
+                    Vans <BsFillBusFrontFill />
+                  </>
+                ) : (
+                  <BsFillBusFrontFill />
+                )}
               </NavLink>
             </li>
             <li>
@@ -36,7 +58,13 @@ function Host() {
                 to="reviews"
                 className={(e) => (e.isActive ? "active" : null)}
               >
-                Reviews
+                {window.innerWidth > 767 ? (
+                  <>
+                    Reviews <BsLayoutTextSidebar />
+                  </>
+                ) : (
+                  <BsLayoutTextSidebar />
+                )}
               </NavLink>
             </li>
           </ul>
