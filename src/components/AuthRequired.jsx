@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { UserContext } from "../App";
 
 function AuthRequired() {
-  const auth = { token: null };
+  const { user, setUser } = useContext(UserContext);
   const location = useLocation();
 
-  if (!auth.token)
+  if (!user?.token)
     return (
       <Navigate
         to="login"

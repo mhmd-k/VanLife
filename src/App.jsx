@@ -22,6 +22,9 @@ import Error from "./pages/Error";
 import LogIn, { action as loginAction } from "./pages/SignIn";
 import AuthRequired from "./components/AuthRequired";
 import SignUp from "./pages/SignUp";
+import { createContext, useEffect, useState } from "react";
+
+export const UserContext = createContext();
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -71,7 +74,19 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
+  );
 }
 
 export default App;

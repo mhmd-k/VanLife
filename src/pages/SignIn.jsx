@@ -1,42 +1,73 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {
-  Link,
   useLocation,
-  useNavigate,
   Form,
   useActionData,
   useNavigation,
   NavLink,
+  redirect,
+  useNavigate,
 } from "react-router-dom";
-import { loginUser } from "../api";
+import { loginUser } from "../api/firebase";
 import { BiLogIn } from "react-icons/bi";
+import { UserContext } from "../App";
+import { BiUserCircle } from "react-icons/bi";
 
 export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
-  const pass = formData.get("password");
+  const password = formData.get("password");
   try {
-    const data = await loginUser({ email, pass });
-    return data;
-  } catch (err) {
-    return {
-      error: err.message,
-    };
+    const data = await loginUser({ email, password });
+    return data.user;
+  } catch (error) {
+    return { error };
   }
 }
 
 function LogIn() {
+  const { user, setUser } = useContext(UserContext);
+
   const location = useLocation();
-  const navigate = useNavigate();
   const data = useActionData();
   const navigation = useNavigation();
-  const from = location.state?.from || "/host";
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
+
+  console.log(user);
 
   useEffect(() => {
-    if (data?.token) {
+    if (data) {
+      setUser({
+        email: data.email,
+        token: data.accessToken,
+      });
       navigate(from, { replace: true });
     }
   }, [data]);
+
+  if (user?.token) {
+    return (
+      <>
+        <ul className="user-info">
+          <li>
+            <BiUserCircle />
+          </li>
+          <li>Email: {user.email}</li>
+          <li>
+            <button
+              onClick={() => {
+                setUser(null);
+                localStorage.removeItem("user");
+              }}
+            >
+              Sign Out
+            </button>
+          </li>
+        </ul>
+      </>
+    );
+  }
 
   return (
     <div className="sign-in">
@@ -46,7 +77,11 @@ function LogIn() {
       <Form action="/login" method="post">
         <div className="container">
           <h2>Sign in to your account</h2>
-          {data?.error && <>{data.error}</>}
+          {data?.error && (
+            <p className="error">
+              {data.error.code.slice(5).split("-").join(" ")}
+            </p>
+          )}
           <input type="email" name="email" placeholder="Email address" />
           <input type="password" name="password" placeholder="Password" />
           <button

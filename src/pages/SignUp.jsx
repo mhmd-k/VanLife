@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { redirect, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createAccount } from "../api/firebase";
 
 function SignUp() {
@@ -10,9 +10,10 @@ function SignUp() {
   const [state, setState] = useState("idle");
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/vans";
-
+  console.log(from);
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -28,10 +29,8 @@ function SignUp() {
           ...formData,
           token: userCredential.user.accessToken,
         };
-        console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
-
-        // redirect(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         setError({ ...err });
@@ -47,7 +46,7 @@ function SignUp() {
       <form onSubmit={handleSubmit}>
         <div className="container">
           <h2>Create an account</h2>
-          <p>{error && error.code?.slice(5)}</p>
+          {error && <p className="error">{error.code?.slice(5)}</p>}
           <input
             type="email"
             name="email"
@@ -61,7 +60,7 @@ function SignUp() {
             placeholder="Password"
             value={formData.pass}
             onChange={handleChange}
-            minLength={8}
+            minLength={6}
             maxLength={12}
           />
           <button className="submit">
