@@ -1,6 +1,6 @@
 import VanCard from "./VanCard";
 import { useSearchParams, useLoaderData, defer, Await } from "react-router-dom";
-import { getVans } from "../../api";
+import { getVans } from "../../api/firebase.js";
 import { Suspense } from "react";
 import Spinner from "../../components/Spinner";
 

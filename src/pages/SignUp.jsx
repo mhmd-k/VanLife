@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { createAccount } from "../api/firebase";
+import { createAccount, addUserVansDoc, loginUser } from "../api/firebase";
+import { UserContext } from "../App";
 
 function SignUp() {
+  const { user, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,8 +14,7 @@ function SignUp() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || "/vans";
-  console.log(from);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -25,12 +26,15 @@ function SignUp() {
     setError(null);
     createAccount(formData.email, formData.password)
       .then((userCredential) => {
+        console.log(userCredential.user);
         const user = {
-          ...formData,
+          email: formData.email,
           token: userCredential.user.accessToken,
+          uid: userCredential.user.uid,
         };
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate(from, { replace: true });
+        setUser(user);
+        addUserVansDoc(user);
+        navigate("/vans", { replace: true });
       })
       .catch((err) => {
         setError({ ...err });
@@ -63,7 +67,13 @@ function SignUp() {
             minLength={6}
             maxLength={12}
           />
-          <button className="submit">
+          <button
+            className="submit"
+            style={{
+              pointerEvents: state === "submitting" ? "none" : "visible",
+              opacity: state === "submitting" ? 0.7 : 1,
+            }}
+          >
             {state === "submitting" ? "..." : "Sign up"}
           </button>
         </div>

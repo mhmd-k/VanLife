@@ -1,20 +1,26 @@
-import { Suspense } from "react";
+import { Suspense, useContext, useState } from "react";
 import {
   Link,
   useLocation,
   defer,
   Await,
   useLoaderData,
+  NavLink,
 } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import { getVans } from "../../api";
+import { getVan, rentVan } from "../../api/firebase";
 import Spinner from "../../components/Spinner";
+import { UserContext } from "../../App";
 
 export function loader({ params }) {
-  return defer({ van: getVans(params.id) });
+  return defer({ van: getVan(params.id) });
 }
 
 function VanDetail() {
+  const { user, setUser } = useContext(UserContext);
+  const [vanExists, setVanExists] = useState(false);
+  const [addVan, setAddVan] = useState(false);
+  const [state, setState] = useState("idle");
   const vanPromise = useLoaderData();
   const location = useLocation();
   const filter = location.state?.filter || "";
@@ -39,7 +45,32 @@ function VanDetail() {
             <h3>{van.name}</h3>
             <p>${van.price}/day</p>
             <p>{van.description}</p>
-            <button className="main">Rent this van</button>
+            {vanExists && (
+              <p className="error">You've already rented this van</p>
+            )}
+            {addVan && (
+              <p className="msg">van has been added to your collection</p>
+            )}
+            <button
+              className="main"
+              onClick={() => {
+                setState("submitting");
+                rentVan(van, user.uid)
+                  .then((res) => {
+                    setVanExists(res);
+                    setAddVan(!res);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })
+                  .finally(() => {
+                    setState("idle");
+                  });
+              }}
+              disabled={state === "submitting"}
+            >
+              {state === "submitting" ? "..." : "Rent this van"}
+            </button>
           </div>
         </div>
       </div>

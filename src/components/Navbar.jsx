@@ -36,7 +36,7 @@ function Navbar() {
                 Vans
               </NavLink>
             </li>
-            <li>
+            <li title="login">
               <NavLink
                 to="/login"
                 className={(e) => (e.isActive ? "active" : null)}

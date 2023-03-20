@@ -1,10 +1,16 @@
 import { Suspense } from "react";
-import { Await, Link, useLoaderData, defer } from "react-router-dom";
-import { getHostVans } from "../../api";
+import {
+  Await,
+  Link,
+  useLoaderData,
+  defer,
+  useLocation,
+} from "react-router-dom";
 import Spinner from "../../components/Spinner";
 
-export function loader() {
-  return defer({ vans: getHostVans() });
+export function loader(obj) {
+  console.log(obj.params);
+  return defer({ vans: "" });
 }
 
 function renderVans(vans) {

@@ -11,7 +11,7 @@ import {
 import { loginUser } from "../api/firebase";
 import { BiLogIn } from "react-icons/bi";
 import { UserContext } from "../App";
-import { BiUserCircle } from "react-icons/bi";
+import { BiUserCircle, BiLogOut } from "react-icons/bi";
 
 export async function action({ request }) {
   const formData = await request.formData();
@@ -19,9 +19,9 @@ export async function action({ request }) {
   const password = formData.get("password");
   try {
     const data = await loginUser({ email, password });
-    return data.user;
-  } catch (error) {
-    return { error };
+    return data.user || null;
+  } catch (err) {
+    return { ...err };
   }
 }
 
@@ -32,17 +32,16 @@ function LogIn() {
   const data = useActionData();
   const navigation = useNavigation();
   const navigate = useNavigate();
-  const from = location.state?.from || "/";
-
-  console.log(user);
 
   useEffect(() => {
-    if (data) {
+    console.log(data);
+    if (data?.accessToken) {
       setUser({
         email: data.email,
         token: data.accessToken,
+        uid: data.uid,
       });
-      navigate(from, { replace: true });
+      navigate("/host", { replace: true });
     }
   }, [data]);
 
@@ -58,10 +57,9 @@ function LogIn() {
             <button
               onClick={() => {
                 setUser(null);
-                localStorage.removeItem("user");
               }}
             >
-              Sign Out
+              Sign Out <BiLogOut />
             </button>
           </li>
         </ul>
@@ -77,11 +75,7 @@ function LogIn() {
       <Form action="/login" method="post">
         <div className="container">
           <h2>Sign in to your account</h2>
-          {data?.error && (
-            <p className="error">
-              {data.error.code.slice(5).split("-").join(" ")}
-            </p>
-          )}
+          {data?.code && <p className="error">{data.code.slice(5)}</p>}
           <input type="email" name="email" placeholder="Email address" />
           <input type="password" name="password" placeholder="Password" />
           <button
