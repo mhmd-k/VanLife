@@ -54,6 +54,10 @@ button {
 a {
   text-decoration: none;
 }
+a.link {
+  color: blue !important;
+  text-decoration: underline !important;
+}
 ul {
   list-style: none;
   margin: 0;
@@ -138,7 +142,7 @@ nav a {
   align-items: center;
   gap: 2px;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 15px;
   transition: var(--main-transition);
   -webkit-transition: var(--main-transition);
   -moz-transition: var(--main-transition);
@@ -588,17 +592,6 @@ button.main {
   flex-basis: 50%;
   overflow: hidden;
 }
-@media (max-width: 767px) {
-  .host-van-detail .card .top .image {
-    flex-basis: 40%;
-  }
-  .host-van-detail .card .top {
-    flex-basis: 100%;
-  }
-  .host-van-detail .card .nav {
-    flex-basis: 100%;
-  }
-}
 .host-van-detail .card .top .image img {
   width: 100%;
   border-radius: 5px;
@@ -610,8 +603,26 @@ button.main {
 .host-van-detail .card .top .text {
   margin-top: 10px;
 }
+.host-van-detail .delete {
+  margin-top: 10px;
+  border-radius: 3px;
+  background-color: red;
+  color: white;
+  padding: 5px 15px;
+  transition: var(--main-transition);
+}
+.host-van-detail .delete:hover {
+  opacity: 0.7;
+}
 .host-van-detail .card nav {
   background-color: inherit;
+  border: 0;
+}
+.host-van-detail .card nav a {
+  text-decoration: none;
+}
+.host-van-detail .card nav a.active {
+  text-decoration: underline;
 }
 .host-van-detail .card p {
   width: 100%;
@@ -623,8 +634,7 @@ button.main {
 .van-images {
   margin: 30px 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, minmax(30px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 10px;
 }
 .van-images div img {
@@ -634,6 +644,20 @@ button.main {
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
+}
+@media (max-width: 767px) {
+  .host-van-detail .card .top .image {
+    flex-basis: 40%;
+  }
+  .host-van-detail .card .top {
+    flex-basis: 100%;
+  }
+  .host-van-detail .card .nav {
+    flex-basis: 100%;
+  }
+  .van-images {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 /* end host-van-detail */
 /* NotFound page */
@@ -780,20 +804,6 @@ main nav {
   border-bottom: 1px solid var(--text-color);
   padding: 0;
 }
-@media (max-width: 767px) {
-  main nav {
-    order: 1;
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 48px;
-    border-top: 1px solid var(--text-color);
-  }
-  main nav .container {
-    padding: 0;
-  }
-}
 main nav .container ul {
   display: flex;
   justify-content: center;
@@ -804,6 +814,7 @@ main nav .container ul li {
 }
 main nav .container ul li a {
   padding: 15px 0;
+  font-size: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -812,6 +823,22 @@ main nav .container ul li a {
   -moz-transition: var(--main-transition);
   -ms-transition: var(--main-transition);
   -o-transition: var(--main-transition);
+}
+@media (max-width: 767px) {
+  main nav {
+    order: 1;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid var(--text-color);
+    margin-top: auto;
+  }
+  main nav .container {
+    padding: 0;
+  }
+  main nav .container ul li a {
+    font-size: 15px;
+  }
 }
 main nav .container ul li a.active,
 main nav .container ul li a:hover {
@@ -826,7 +853,6 @@ main nav .container ul li a.active:hover {
   opacity: 1;
 }
 main nav .container ul li a svg {
-  font-size: 20px;
   margin-left: 5px;
 }
 .host .top-text {

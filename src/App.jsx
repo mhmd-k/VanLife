@@ -78,8 +78,6 @@ function App() {
     JSON.parse(localStorage.getItem("user")) || null
   );
 
-  console.log(user);
-
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);

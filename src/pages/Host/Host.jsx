@@ -3,8 +3,12 @@ import { SiSimpleanalytics } from "react-icons/si";
 import { BiCoinStack } from "react-icons/bi";
 import { BsFillBusFrontFill } from "react-icons/bs";
 import { BsLayoutTextSidebar } from "react-icons/bs";
+import { useContext } from "react";
+import { UserContext } from "../../App";
 
 function Host() {
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <>
       <nav>
@@ -72,7 +76,7 @@ function Host() {
       </nav>
       <div className="host">
         <div className="container">
-          <Outlet />
+          <Outlet context={{ user }} />
         </div>
       </div>
     </>

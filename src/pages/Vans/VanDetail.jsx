@@ -6,6 +6,9 @@ import {
   Await,
   useLoaderData,
   NavLink,
+  Navigate,
+  redirect,
+  useNavigate,
 } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { getVan, rentVan } from "../../api/firebase";
@@ -21,12 +24,37 @@ function VanDetail() {
   const [vanExists, setVanExists] = useState(false);
   const [addVan, setAddVan] = useState(false);
   const [state, setState] = useState("idle");
+
   const vanPromise = useLoaderData();
   const location = useLocation();
+  const navigate = useNavigate();
   const filter = location.state?.filter || "";
   const type = location.state?.type || "all";
 
   function renderVan(van) {
+    async function handleRentVanButton() {
+      if (!user?.token) {
+        return navigate("../login", {
+          state: {
+            from: location.pathname,
+            message: "You must login first",
+          },
+        });
+      }
+      setState("submitting");
+      await rentVan(van, user.uid)
+        .then((res) => {
+          setVanExists(res);
+          setAddVan(!res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setState("idle");
+        });
+    }
+
     return (
       <div className="container">
         {/* this link will take you to the vans page and if there
@@ -53,20 +81,7 @@ function VanDetail() {
             )}
             <button
               className="main"
-              onClick={() => {
-                setState("submitting");
-                rentVan(van, user.uid)
-                  .then((res) => {
-                    setVanExists(res);
-                    setAddVan(!res);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  })
-                  .finally(() => {
-                    setState("idle");
-                  });
-              }}
+              onClick={handleRentVanButton}
               disabled={state === "submitting"}
             >
               {state === "submitting" ? "..." : "Rent this van"}

@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -17,6 +18,7 @@ import {
   updateDoc,
   onSnapshot,
 } from "firebase/firestore";
+import { SiWireshark } from "react-icons/si";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBG8DcAJfveRYlkUlAgLVNnU-WIwBLxCnk",
@@ -31,7 +33,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const db = getFirestore();
 const vansCollectionRef = collection(db, "vans");
-const usersVansCollRef = collection(db, "usersVans");
+const usersVansRef = collection(db, "usersVans");
 
 export async function createAccount(email, password) {
   return await createUserWithEmailAndPassword(auth, email, password);
@@ -43,12 +45,18 @@ export async function loginUser(user) {
 }
 
 export async function addUserVansDoc(user) {
-  const userDoc = await addDoc(usersVansCollRef, {
+  const userDoc = await addDoc(usersVansRef, {
     vans: [],
     user: user.email,
     uid: user.uid,
   });
   return userDoc;
+}
+
+export async function signUserOut() {
+  signOut(auth).then(() => {
+    localStorage.removeItem("user");
+  }).catch;
 }
 
 export async function getVans() {
@@ -70,7 +78,7 @@ export async function getVan(id) {
 }
 
 export async function rentVan(van, uid) {
-  const q = query(usersVansCollRef, where("uid", "==", uid));
+  const q = query(usersVansRef, where("uid", "==", uid));
   const querySnap = await getDocs(q);
   let id = null;
   let vanExests = false;
@@ -95,4 +103,27 @@ export async function rentVan(van, uid) {
     vans: [...data.vans, van],
   });
   return false;
+}
+
+export async function getHostVans(hostId) {
+  const q = query(usersVansRef, where("uid", "==", hostId));
+  const querySnap = await getDocs(q);
+  let vans = null;
+  querySnap.forEach((doc) => {
+    vans = doc.data().vans;
+  });
+  return vans;
+}
+
+export async function deleteVan(hostId, vanId) {
+  const q = query(usersVansRef, where("uid", "==", hostId));
+  const querySnap = await getDocs(q);
+  let vans = null;
+  let docId = null;
+  querySnap.forEach((doc) => {
+    docId = doc.id;
+    vans = doc.data().vans;
+  });
+  vans = vans.filter((van) => van.id !== vanId);
+  await updateDoc(doc(db, "usersVans", docId), { vans: vans });
 }

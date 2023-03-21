@@ -8,7 +8,7 @@ import {
   redirect,
   useNavigate,
 } from "react-router-dom";
-import { loginUser } from "../api/firebase";
+import { loginUser, signUserOut } from "../api/firebase";
 import { BiLogIn } from "react-icons/bi";
 import { UserContext } from "../App";
 import { BiUserCircle, BiLogOut } from "react-icons/bi";
@@ -17,11 +17,14 @@ export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
+  if (email === "" || password === "") {
+    return { message: "please fill all fields" };
+  }
   try {
     const data = await loginUser({ email, password });
-    return data.user || null;
+    return { ...data.user, message: "logged in" } || null;
   } catch (err) {
-    return { ...err };
+    return { message: err.code.slice(5).split("-").join(" ") };
   }
 }
 
@@ -32,16 +35,18 @@ function LogIn() {
   const data = useActionData();
   const navigation = useNavigation();
   const navigate = useNavigate();
-
+  const from = location.state?.from || "/vans";
+  console.log(data);
   useEffect(() => {
-    console.log(data);
-    if (data?.accessToken) {
+    if (data?.message === "logged in") {
+      console.log(data);
       setUser({
         email: data.email,
         token: data.accessToken,
         uid: data.uid,
       });
-      navigate("/host", { replace: true });
+      console.log("user is available");
+      return navigate(from, { replace: true });
     }
   }, [data]);
 
@@ -56,7 +61,7 @@ function LogIn() {
           <li>
             <button
               onClick={() => {
-                setUser(null);
+                signUserOut().then(() => setUser(null));
               }}
             >
               Sign Out <BiLogOut />
@@ -75,7 +80,7 @@ function LogIn() {
       <Form action="/login" method="post">
         <div className="container">
           <h2>Sign in to your account</h2>
-          {data?.code && <p className="error">{data.code.slice(5)}</p>}
+          {data?.message && <p className="error">{data.message}</p>}
           <input type="email" name="email" placeholder="Email address" />
           <input type="password" name="password" placeholder="Password" />
           <button

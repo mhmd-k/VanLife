@@ -1,19 +1,25 @@
 import { Suspense } from "react";
-import {
-  Await,
-  Link,
-  useLoaderData,
-  defer,
-  useLocation,
-} from "react-router-dom";
+import { Await, Link, useLoaderData, defer } from "react-router-dom";
 import Spinner from "../../components/Spinner";
+import { getHostVans } from "../../api/firebase";
 
-export function loader(obj) {
-  console.log(obj.params);
-  return defer({ vans: "" });
+export function loader() {
+  const uid = JSON.parse(localStorage.getItem("user")).uid;
+  return defer({ vans: getHostVans(uid) });
 }
 
 function renderVans(vans) {
+  console.log(vans);
+  if (vans.length === 0) {
+    return (
+      <>
+        you don't have any vans,{" "}
+        <Link className="link" to="/vans">
+          Rent one Now
+        </Link>
+      </>
+    );
+  }
   const vansElements = vans.map((van) => {
     return (
       <div className="van" key={van.id}>

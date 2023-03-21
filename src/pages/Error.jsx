@@ -5,9 +5,9 @@ function Error() {
 
   return (
     <>
-      <h1>Error: {error?.message}</h1>
+      <h2>Error: please check your internet connection and try again.</h2>
       <pre>
-        {error?.status} - {error?.statusText}
+        {error?.status} {error?.statusText}
       </pre>
     </>
   );

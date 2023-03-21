@@ -11,11 +11,13 @@ function Photos() {
     van.imageUrl,
   ];
 
-  const vanImages = imagesArr.map((image, index) => (
-    <div className="image" key={index}>
-      <img scr={image} alt={`van image ${index}`} />
-    </div>
-  ));
+  const vanImages = imagesArr.map((image, index) => {
+    return (
+      <div className="image" key={index}>
+        <img src={image} alt={`image ${index}`} />
+      </div>
+    );
+  });
 
   return <>{van && <div className="van-images">{vanImages}</div>}</>;
 }
